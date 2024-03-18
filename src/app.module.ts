@@ -1,11 +1,14 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core'
 import { JwtModule } from '@nestjs/jwt'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity'
+import { Role } from './user/entities/role.entity'
 import { Permission } from './user/entities/permission.entity'
+import { LoginGuard } from './login.guard'
 
 @Module({
   imports: [
@@ -26,15 +29,21 @@ import { Permission } from './user/entities/permission.entity'
       database: "hello-world",
       synchronize: true,
       logging: true,
-      entities: [User, Permission],
+      entities: [User, Role, Permission],
       poolSize: 10,
       connectorPackage: 'mysql2',
       extra: {
-          authPlugin: 'sha256_password',
+        authPlugin: 'sha256_password',
       }
     })
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: LoginGuard
+    }
+  ],
 })
-export class AppModule {}
+export class AppModule { }

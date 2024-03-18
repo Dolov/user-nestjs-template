@@ -1,24 +1,15 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, ManyToMany, JoinTable } from "typeorm";
-import { Role } from './role.entity'
 import { Permission } from './permission.entity'
-import { PermissionTypeEnum } from '../interface'
 
 @Entity()
-export class User {
-
+export class Role {
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	@Column()
-	username: string;
-
-	@Column()
-	password: string;
-
 	@Column({
-		default: PermissionTypeEnum.ACL
+		length: 20
 	})
-	permissionType: PermissionTypeEnum
+	name: string;
 
 	@CreateDateColumn()
 	createTime: Date;
@@ -26,15 +17,10 @@ export class User {
 	@UpdateDateColumn()
 	updateTime: Date;
 
-	@ManyToMany(() => Role)
-	@JoinTable({
-		name: "user_role_relation"
-	})
-	roles: Role[]
-
 	@ManyToMany(() => Permission)
 	@JoinTable({
-		name: "user_permission_relation"
+		name: 'role_permission_relation'
 	})
 	permissions: Permission[]
 }
+

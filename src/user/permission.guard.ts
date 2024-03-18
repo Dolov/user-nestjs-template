@@ -3,6 +3,7 @@ import { Reflector } from '@nestjs/core'
 import { Observable } from 'rxjs';
 import { Request } from 'express'
 import { UserService } from './user.service';
+import { PermissionTypeEnum } from './interface'
 
 declare module 'express' {
   interface Request {
@@ -26,15 +27,22 @@ export class PermissionGuard implements CanActivate {
   async canActivate(
     context: ExecutionContext,
   ): Promise<boolean> {
-
     const request: Request = context.switchToHttp().getRequest();
     const username = request.user.username
     const user = await this.userService.findByUsername(username);
     const permission = this.reflector.get('permission', context.getHandler())
-    const withPermission = user.permissions.find(item => item.name === permission)
-    if (withPermission) {
-      return true
+    const { permissionType, roles, permissions } = user
+    if (permissionType === PermissionTypeEnum.ACL) {
+      const withPermission = permissions.find(item => item.name === permission)
+      if (withPermission) {
+        return true
+      }
     }
+
+    if (permissionType === PermissionTypeEnum.RBAC) {
+      
+    }
+    
     throw new UnauthorizedException('没有权限访问该接口');
   }
 }

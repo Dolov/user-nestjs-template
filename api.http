@@ -12,7 +12,7 @@ POST http://localhost:3000/user/register HTTP/1.1
 content-type: application/json
 
 {
-    "username": "sfae",
+    "username": "sh1isongyan",
     "password": "shisongyan"
 }
 
@@ -21,6 +21,6 @@ POST http://localhost:3000/user/login HTTP/1.1
 content-type: application/json
 
 {
-    "username": "samp11le",
+    "username": "shisongyan",
     "password": "shisongyan"
 }

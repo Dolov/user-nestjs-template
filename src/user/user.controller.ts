@@ -1,4 +1,4 @@
-import { HttpStatus, Controller, ValidationPipe, Post, Body, Res, Inject, Headers, UnauthorizedException } from '@nestjs/common';
+import { HttpStatus, Controller, SetMetadata, Post, Body, Res, Inject, Headers, UnauthorizedException } from '@nestjs/common';
 import { Request, Response } from 'express'
 import { JwtService } from '@nestjs/jwt'
 import { UserService } from './user.service';
@@ -13,6 +13,7 @@ export class UserController {
   private jwtService: JwtService
 
   @Post('login')
+  @SetMetadata('noLogin', true)
   async login(@Body() userDto: LoginDto, @Res({ passthrough: true }) response: Response) {
     const user = await this.userService.login(userDto)
     const token = await this.jwtService.signAsync({
@@ -29,6 +30,7 @@ export class UserController {
   }
 
   @Post('register')
+  @SetMetadata('noLogin', true)
   async register(@Body() userDto: RegisterDto) {
     const user = await this.userService.register(userDto)
     return {

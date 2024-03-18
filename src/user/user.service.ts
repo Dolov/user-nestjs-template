@@ -5,6 +5,7 @@ import { User } from './entities/user.entity'
 import { LoginDto } from './dto/login.dto'
 import { RegisterDto } from './dto/register.dto'
 import { md5 } from '../utils'
+import { PermissionTypeEnum } from './interface'
 
 
 @Injectable()
@@ -36,7 +37,6 @@ export class UserService {
         username: user.username
       }
     } catch(e) {
-      this.logger.error(e, UserService.name);
       throw new HttpException('用户存储失败', HttpStatus.INTERNAL_SERVER_ERROR)
     }
   }
@@ -69,7 +69,8 @@ export class UserService {
         username,
       },
       relations: {
-        permissions: true
+        roles: true,
+        permissions: true,
       }
     })
     return user
