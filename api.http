@@ -8,6 +8,11 @@ GET http://localhost:3000/world HTTP/1.1
 authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlciI6InNhbXAxMWxlIiwiaWF0IjoxNzEwNTAwMTAzLCJleHAiOjE3MTExMDQ5MDN9._ITmO_Yi5aLR819u2fDQ07qPuGYcM13stm-cJtREIsY
 
 ###
+GET http://localhost:3000/config HTTP/1.1
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlciI6InNhbXAxMWxlIiwiaWF0IjoxNzEwNTAwMTAzLCJleHAiOjE3MTExMDQ5MDN9._ITmO_Yi5aLR819u2fDQ07qPuGYcM13stm-cJtREIsY
+
+
+###
 POST http://localhost:3000/user/register HTTP/1.1
 content-type: application/json
 
