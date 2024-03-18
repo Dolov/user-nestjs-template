@@ -4,6 +4,7 @@ import { Reflector } from '@nestjs/core'
 import { JwtService } from '@nestjs/jwt'
 import { Observable } from 'rxjs';
 import { Request } from 'express';
+import { noLoginMetadata } from './utils'
 
 
 export class LoginGuard implements CanActivate {
@@ -17,7 +18,7 @@ export class LoginGuard implements CanActivate {
   canActivate(
     context: ExecutionContext
   ): boolean | Promise<boolean> | Observable<boolean> {
-    const noLogin = this.reflector.get('noLogin', context.getHandler())
+    const noLogin = this.reflector.get(noLoginMetadata, context.getHandler())
     if (noLogin === true) return true
 
     const request: Request = context.switchToHttp().getRequest()

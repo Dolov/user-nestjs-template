@@ -4,6 +4,7 @@ import { JwtService } from '@nestjs/jwt'
 import { UserService } from './user.service';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
+import { NotNeedLogin } from '../utils'
 
 @Controller('user')
 export class UserController {
@@ -13,7 +14,7 @@ export class UserController {
   private jwtService: JwtService
 
   @Post('login')
-  @SetMetadata('noLogin', true)
+  @NotNeedLogin()
   async login(@Body() userDto: LoginDto, @Res({ passthrough: true }) response: Response) {
     const user = await this.userService.login(userDto)
     const token = await this.jwtService.signAsync({
@@ -30,7 +31,7 @@ export class UserController {
   }
 
   @Post('register')
-  @SetMetadata('noLogin', true)
+  @NotNeedLogin()
   async register(@Body() userDto: RegisterDto) {
     const user = await this.userService.register(userDto)
     return {
