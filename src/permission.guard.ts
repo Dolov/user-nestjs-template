@@ -2,8 +2,8 @@ import { CanActivate, ExecutionContext, Injectable, Inject, UnauthorizedExceptio
 import { Reflector } from '@nestjs/core'
 import { Observable } from 'rxjs';
 import { Request } from 'express'
-import { UserService } from './user.service';
-import { PermissionTypeEnum } from './interface'
+import { UserService } from './user/user.service';
+import { PermissionTypeEnum } from './user/interface'
 
 declare module 'express' {
   interface Request {

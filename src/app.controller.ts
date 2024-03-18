@@ -1,6 +1,6 @@
 import { Controller, Get, UseGuards, SetMetadata } from '@nestjs/common';
 import { AppService } from './app.service';
-import { PermissionGuard } from './user/permission.guard'
+import { PermissionGuard } from './permission.guard'
 
 @Controller()
 export class AppController {
