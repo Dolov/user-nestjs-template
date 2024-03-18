@@ -29,3 +29,6 @@ content-type: application/json
     "username": "shisongyan",
     "password": "shisongyan"
 }
+
+###
+GET http://localhost:3000/user/refreshToken?refresh_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzEwNzUxNDIwLCJleHAiOjE3MTEzNTYyMjB9.7n07HVnHW-5knuCbpokOhGmatVuhlhkYWyHTaBTTHLo HTTP/1.1

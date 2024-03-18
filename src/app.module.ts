@@ -13,8 +13,10 @@ import { LoginGuard } from './login.guard'
 import { PermissionGuard } from './permission.guard'
 import { env } from './utils'
 
-const envFilePath = env ? ["./development.env"]: ["./production.env"]
+const dev = "./development.env"
+const prod = "./production.env"
 
+const envFilePath = env ? [dev]: [dev, prod]
 @Module({
   imports: [
     UserModule,
@@ -29,9 +31,9 @@ const envFilePath = env ? ["./development.env"]: ["./production.env"]
       useFactory(config) {
         return {
           secret: config.get('jwt_secret'),
-          signOptions: {
-            expiresIn: config.get('jwt_expires')
-          }
+          // signOptions: {
+          //   expiresIn: config.get('jwt_expires')
+          // }
         }
       }
     }),
