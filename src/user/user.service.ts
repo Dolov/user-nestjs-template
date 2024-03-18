@@ -1,17 +1,20 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { Repository, In } from 'typeorm'
 import { User } from './entities/user.entity'
+import { Role } from './entities/role.entity'
 import { LoginDto } from './dto/login.dto'
 import { RegisterDto } from './dto/register.dto'
 import { md5 } from '../utils'
-import { PermissionTypeEnum } from './interface'
 
 
 @Injectable()
 export class UserService {
 
   private logger = new Logger();
+
+  @InjectRepository(Role)
+  private roleRepository: Repository<Role>
 
   @InjectRepository(User)
   private userRepository: Repository<User>
@@ -74,5 +77,16 @@ export class UserService {
       }
     })
     return user
+  }
+
+  async findRolesByIds(roleIds: number[]) {
+    return this.roleRepository.find({
+      where: {
+        id: In(roleIds)
+      },
+      relations: {
+        permissions: true
+      }
+    })
   }
 }

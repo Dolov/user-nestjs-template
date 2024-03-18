@@ -18,7 +18,11 @@ export class LoginGuard implements CanActivate {
   canActivate(
     context: ExecutionContext
   ): boolean | Promise<boolean> | Observable<boolean> {
-    const noLogin = this.reflector.get(noLoginMetadata, context.getHandler())
+    const noLogin = this.reflector.getAllAndOverride(noLoginMetadata, [
+      context.getClass(),
+      context.getHandler(),
+    ])
+    
     if (noLogin === true) return true
 
     const request: Request = context.switchToHttp().getRequest()

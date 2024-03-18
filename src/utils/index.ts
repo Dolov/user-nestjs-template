@@ -11,3 +11,5 @@ export const md5 = (str: string) => {
 export const noLoginMetadata = 'not-need-login'
 
 export const NotNeedLogin = () => SetMetadata('not-need-login', true)
+
+export const SetPermission = (name: string) => SetMetadata('permission', name)
